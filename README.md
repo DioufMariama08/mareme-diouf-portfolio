@@ -1,4 +1,4 @@
-# Hi, I'm Maréme Diouf 👋
+# Hi, I'm Marème Diouf 👋
 
 **Data Analyst · BI Analyst** · 📍 Rufisque Ouest, Sénégal
 
