@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maréme Diouf — Analyste Data & BI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f7f4ef; --bg2: #efe9df; --card: #ffffff;
+      --dark: #1a1612; --accent: #c8622a; --accent2: #2a6e8c;
+      --muted: #7a6e62; --border: #ddd5c8; --radius: 18px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--dark); font-family: 'Nunito Sans', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 64px; background: rgba(247,244,239,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 1.4rem; color: var(--accent); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .875rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 64px 80px; gap: 60px; position: relative; overflow: hidden; }
+    .hero-deco { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(200,98,42,.12) 0%, transparent 70%); right: -100px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(200,98,42,.1); border: 1px solid rgba(200,98,42,.25); color: var(--accent); font-size: .75rem; font-weight: 700; padding: 6px 14px; border-radius: 100px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; animation: fadeUp .6s ease both; }
+    h1 { font-family: 'Fraunces', serif; font-size: clamp(3rem, 5vw, 4.8rem); font-weight: 600; line-height: 1.05; letter-spacing: -2px; margin-bottom: 8px; animation: fadeUp .6s .1s ease both; }
+    .hero-title-accent { font-style: italic; color: var(--accent); }
+    .hero-role { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 300; color: var(--muted); margin-bottom: 28px; animation: fadeUp .6s .2s ease both; }
+    .hero-desc { font-size: 1rem; color: var(--muted); max-width: 460px; line-height: 1.8; margin-bottom: 40px; animation: fadeUp .6s .25s ease both; }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp .6s .3s ease both; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 100px; font-weight: 700; font-size: .875rem; text-decoration: none; transition: all .25s; letter-spacing: .3px; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #b5521f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,98,42,.3); }
+    .btn-secondary { background: transparent; color: var(--dark); border: 2px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .hero-right { display: flex; align-items: center; justify-content: center; animation: fadeUp .6s .2s ease both; }
+    .hero-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 36px; box-shadow: 0 20px 60px rgba(26,22,18,.08); width: 100%; max-width: 380px; }
+    .hero-card-title { font-size: .7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .tool-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .pill { padding: 6px 14px; border-radius: 100px; font-size: .78rem; font-weight: 700; border: 1.5px solid; }
+    .pill-orange { background: rgba(200,98,42,.1); color: var(--accent); border-color: rgba(200,98,42,.3); }
+    .pill-blue { background: rgba(42,110,140,.1); color: var(--accent2); border-color: rgba(42,110,140,.3); }
+    .pill-green { background: rgba(42,140,80,.1); color: #2a8c50; border-color: rgba(42,140,80,.3); }
+    .pill-dark { background: rgba(26,22,18,.07); color: var(--dark); border-color: var(--border); }
+    .mini-chart-label { font-size: .72rem; color: var(--muted); margin-bottom: 10px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .bar-name { font-size: .75rem; width: 60px; color: var(--muted); }
+    .bar-track { flex: 1; height: 8px; background: var(--bg2); border-radius: 100px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 100px; }
+    .stats { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--card); }
+    .stat { padding: 36px 24px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 600; color: var(--accent); display: block; margin-bottom: 6px; }
+    .stat-label { font-size: .82rem; color: var(--muted); font-weight: 600; }
+    section { padding: 100px 64px; }
+    .section-label { font-size: .7rem; font-weight: 800; letter-spacing: 2.5px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+    h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 600; letter-spacing: -1.5px; margin-bottom: 14px; line-height: 1.1; }
+    .section-intro { color: var(--muted); max-width: 540px; margin-bottom: 60px; line-height: 1.8; }
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-text p { color: var(--muted); line-height: 1.9; margin-bottom: 16px; }
+    .about-info { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .info-row { display: flex; align-items: center; gap: 12px; font-size: .9rem; }
+    .info-row a { color: var(--accent); text-decoration: none; }
+    .info-row a:hover { text-decoration: underline; }
+    .about-skills-title { font-size: .7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .skills-list { display: flex; flex-direction: column; gap: 14px; }
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: .85rem; font-weight: 600; }
+    .skill-pct { color: var(--muted); }
+    .skill-bar { height: 8px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; border-radius: 100px; background: var(--accent); }
+    #projects { background: var(--bg); }
+    .projects-stack { display: flex; flex-direction: column; gap: 32px; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 44px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; transition: border-color .25s, box-shadow .25s, transform .25s; }
+    .project-card:hover { border-color: var(--accent); box-shadow: 0 16px 48px rgba(200,98,42,.07); transform: translateY(-4px); }
+    .project-num { font-family: 'Fraunces', serif; font-size: 4rem; font-weight: 600; color: var(--bg2); line-height: 1; margin-bottom: 16px; }
+    .project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .project-tag { padding: 4px 12px; border-radius: 100px; font-size: .72rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+    .tag-orange { background: rgba(200,98,42,.1); color: var(--accent); }
+    .tag-blue { background: rgba(42,110,140,.1); color: var(--accent2); }
+    .tag-green { background: rgba(42,140,80,.1); color: #2a8c50; }
+    .project-card h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: -.5px; margin-bottom: 14px; line-height: 1.2; }
+    .project-card p { color: var(--muted); line-height: 1.8; margin-bottom: 20px; font-size: .95rem; }
+    .project-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-tool { display: flex; align-items: center; gap: 5px; background: var(--bg2); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; font-size: .78rem; font-weight: 600; color: var(--muted); }
+    .project-side { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; min-width: 140px; }
+    .project-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .icon-orange { background: rgba(200,98,42,.1); }
+    .icon-blue { background: rgba(42,110,140,.1); }
+    .project-impact { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-align: right; }
+    .impact-label { font-size: .68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .impact-text { font-size: .82rem; color: var(--dark); line-height: 1.4; max-width: 160px; }
+    #rapports { background: var(--bg2); }
+    .rapport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 20px; margin-bottom: 40px; }
+    .rapport-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color .25s, transform .25s, box-shadow .25s; }
+    .rapport-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 16px 40px rgba(200,98,42,.08); }
+    .rapport-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .thumb-1 { background: linear-gradient(135deg, #fdf2eb, #f5dcc8); }
+    .thumb-2 { background: linear-gradient(135deg, #eaf4f8, #c8e4ef); }
+    .rapport-body { padding: 24px; }
+    .rapport-body h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    .rapport-body p { font-size: .85rem; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+    .rapport-btns { display: flex; gap: 8px; }
+    .btn-sm { padding: 9px 20px; font-size: .8rem; }
+    .pdf-viewer { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .pdf-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg); }
+    .pdf-dots { display: flex; gap: 6px; }
+    .pdf-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .pdf-dot:nth-child(1) { background: #ff5f56; }
+    .pdf-dot:nth-child(2) { background: #ffbd2e; }
+    .pdf-dot:nth-child(3) { background: #27c93f; }
+    .pdf-title { font-size: .85rem; font-weight: 700; color: var(--muted); }
+    .pdf-placeholder { height: 460px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: var(--bg2); color: var(--muted); }
+    .pdf-placeholder-icon { font-size: 2.8rem; opacity: .4; }
+    .pdf-placeholder p { font-size: .88rem; text-align: center; max-width: 320px; line-height: 1.6; }
+    .pdf-placeholder code { background: rgba(200,98,42,.1); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: .8rem; }
+    iframe.pdf-frame { width: 100%; height: 460px; border: none; display: block; }
+    #contact { background: var(--dark); color: #f7f4ef; }
+    #contact .section-label { color: #c8622a; }
+    #contact h2 { color: #f7f4ef; }
+    #contact .section-intro { color: rgba(247,244,239,.6); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; }
+    .contact-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-radius: 14px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #f7f4ef; text-decoration: none; font-size: .92rem; font-weight: 500; transition: all .2s; }
+    .contact-link:hover { background: rgba(200,98,42,.15); border-color: rgba(200,98,42,.4); color: #f7c8a0; transform: translateX(6px); }
+    .contact-link-icon { font-size: 1.2rem; width: 24px; text-align: center; }
+    .contact-quote { font-family: 'Fraunces', serif; font-size: 1.5rem; font-style: italic; font-weight: 300; line-height: 1.5; color: rgba(247,244,239,.7); border-left: 3px solid var(--accent); padding-left: 24px; }
+    footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.08); text-align: center; padding: 28px 64px; color: rgba(247,244,239,.4); font-size: .82rem; }
+    footer span { color: var(--accent); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 1; transform: translateY(0); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; } .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; } .hero-right { display: none; }
+      section { padding: 70px 24px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; } .project-side { align-items: flex-start; }
+      .stats { grid-template-columns: repeat(2,1fr); } .stat:nth-child(2) { border-right: none; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Maréme Diouf</div>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#rapports">Rapports</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-left">
+    <div class="hero-tag">📍 Rufisque Ouest, Sénégal · Ouverte aux opportunités</div>
+    <h1>Maréme<br/><span class="hero-title-accent">Diouf</span></h1>
+    <p class="hero-role">Analyste Data · Analyste BI</p>
+    <p class="hero-desc">Spécialisée dans l'analyse et la visualisation de données. Je travaille avec Python, SQL, Excel et Power BI pour transformer les données brutes en insights actionnables qui guident de meilleures décisions.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">Voir mes projets →</a>
+      <a href="mailto:dioufmariam08@gmail.com" class="btn btn-secondary">✉ Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="photo.jpg" alt="Maréme Diouf" style="width:320px;height:320px;border-radius:50%;object-fit:cover;border:5px solid #c8622a;box-shadow:0 16px 48px rgba(200,98,42,.25);"/>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat reveal"><span class="stat-num">3</span><span class="stat-label">Projets Majeurs</span></div>
+  <div class="stat reveal"><span class="stat-num">5+</span><span class="stat-label">Outils Maîtrisés</span></div>
+  <div class="stat reveal"><span class="stat-num">6 ans</span><span class="stat-label">Données Analysées</span></div>
+  <div class="stat reveal"><span class="stat-num">🌍</span><span class="stat-label">Impact UNICEF</span></div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p class="section-label">À Propos</p>
+      <h2>Mon parcours<br/>en data</h2>
+      <p>Passionnée par la donnée depuis plusieurs années, j'ai développé une expertise solide en analyse, modélisation et visualisation. J'aime résoudre des problèmes concrets grâce aux données, qu'il s'agisse d'optimiser des stocks en pharmacie ou de soutenir des programmes humanitaires.</p>
+      <p>Mon approche combine rigueur technique et sens du détail pour produire des insights clairs et actionnables, adaptés aux besoins de chaque organisation.</p>
+      <div class="about-info">
+        <div class="info-row"><span>📍</span><span>Rufisque Ouest, Cité Cora Fall, Sénégal</span></div>
+        <div class="info-row"><span>✉️</span><a href="mailto:dioufmariam08@gmail.com">dioufmariam08@gmail.com</a></div>
+        <div class="info-row"><span>💼</span><a href="http://www.linkedin.com/in/mar%C3%A8me-diouf-815aa8156" target="_blank">LinkedIn — Maréme Diouf</a></div>
+        <div class="info-row"><span>🐱</span><a href="https://github.com/DioufMariama08" target="_blank">github.com/DioufMariama08</a></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-skills-title">Niveau de Maîtrise</div>
+      <div class="skills-list">
+        <div><div class="skill-header"><span>Power BI & DAX</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+        <div><div class="skill-header"><span>Python (Pandas, NumPy)</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:75%;background:#2a6e8c"></div></div></div>
+        <div><div class="skill-header"><span>SQL</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:70%;background:#2a8c50"></div></div></div>
+        <div><div class="skill-header"><span>Excel & Power Query</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-bar-fill" style="width:78%;background:#8c6a2a"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <p class="section-label reveal">Travaux</p>
+  <h2 class="reveal">Projets Phares</h2>
+  <p class="section-intro reveal">Des projets data concrets avec un impact mesurable.</p>
+  <div class="projects-stack">
+
+    <div class="project-card reveal">
+      <div>
+        <div class="project-num">01</div>
+        <div class="project-tags">
+          <span class="project-tag tag-orange">Python</span>
+          <span class="project-tag tag-orange">Power BI</span>
+          <span class="project-tag tag-blue">Machine Learning</span>
+        </div>
+        <h3>Analyse des Ventes en Pharmacie<br/>& Prévision de la Demande</h3>
+        <p>Analyse de six années de données de ventes pharmaceutiques pour identifier les tendances, les schémas saisonniers et les catégories de médicaments les plus demandées. Analyse exploratoire réalisée en Python et tableaux de bord interactifs construits avec Power BI. Un modèle de Machine Learning basé sur XGBoost a été développé pour prévoir la demande future et améliorer la planification des stocks.</p>
+        <div class="project-tools">
+          <span class="project-tool">🐍 Python (Pandas, NumPy)</span>
+          <span class="project-tool">📊 Power BI</span>
+          <span class="project-tool">🤖 XGBoost</span>
+        </div>
+      </div>
+      <div class="project-side">
+        <div class="project-icon icon-orange">💊</div>
+        <div class="project-impact">
+          <div class="impact-label">Résultat Clé</div>
+          <div class="impact-text">Meilleure planification des stocks grâce à la prévision ML</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div>
+        <div class="project-num">02</div>
+        <div class="project-tags">
+          <span class="project-tag tag-blue">UNICEF</span>
+          <span class="project-tag tag-green">Intégration API</span>
+          <span class="project-tag tag-orange">Power BI</span>
+        </div>
+        <h3>Tableau de Bord de Suivi des<br/>Enregistrements de Naissances – UNICEF Sénégal</h3>
+        <p>Analyse des rapports d'enregistrement de naissances collectés auprès des agents d'état civil dans la région de Kolda au Sénégal. Développement d'un script Python pour extraire les données de l'API RapidPro, nettoyer et transformer les jeux de données, et automatiser le pipeline. Tableaux de bord Power BI interactifs pour suivre les KPIs des agents et fournir un support décisionnel en temps réel pour les programmes UNICEF.</p>
+        <div class="project-tools">
+          <span class="project-tool">🐍 Python</span>
+          <span class="project-tool">🔗 API RapidPro</span>
+          <span class="project-tool">📊 Power BI</span>
+          <span class="project-tool">⚙️ Power Query</span>
+          <span class="project-tool">⏱ Planificateur de Tâches</span>
+        </div>
+      </div>
+      <div class="project-side">
+        <div class="project-icon icon-blue">🌍</div>
+        <div class="project-impact">
+          <div class="impact-label">Impact</div>
+          <div class="impact-text">Soutient le droit à l'identité légale des enfants au Sénégal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div>
+        <div class="project-num">03</div>
+        <div class="project-tags">
+          <span class="project-tag tag-blue">Fintech</span>
+          <span class="project-tag tag-orange">Power BI</span>
+          <span class="project-tag tag-green">KPI</span>
+        </div>
+        <h3>Tableaux de Bord Commerciaux<br/>— Wizall Money</h3>
+        <p>Exploitation et analyse des données des bases de données de l'entreprise pour optimiser le développement de produits, les techniques de marketing et les stratégies commerciales. Création de tableaux de bord en temps réel sur l'activité des commerciaux pour les quatre filiales de l'entreprise (Sénégal, Côte d'Ivoire, Mali, Burkina Faso). Établissement des KPI pour mesurer l'efficacité des décisions commerciales et création de rapports pour les équipes internes et les clients externes.</p>
+        <div class="project-tools">
+          <span class="project-tool">📊 Power BI</span>
+          <span class="project-tool">🗄️ SQL</span>
+          <span class="project-tool">📈 Excel</span>
+          <span class="project-tool">📋 KPI</span>
+        </div>
+      </div>
+      <div class="project-side">
+        <div class="project-icon" style="background:rgba(42,110,140,.1);">💳</div>
+        <div class="project-impact">
+          <div class="impact-label">Impact</div>
+          <div class="impact-text">Suivi en temps réel sur 4 pays : Sénégal, Côte d'Ivoire, Mali, Burkina Faso</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="rapports">
+  <p class="section-label reveal">Rapports</p>
+  <h2 class="reveal">Rapports Power BI</h2>
+  <p class="section-intro reveal">Téléchargez et explorez mes rapports interactifs en PDF.</p>
+  <div class="rapport-grid">
+    <div class="rapport-card reveal">
+      <div class="rapport-thumb thumb-1">💊</div>
+      <div class="rapport-body">
+        <h3>Analyse des Ventes en Pharmacie</h3>
+        <p>Tendances sur six ans, schémas saisonniers et tableau de bord de prévision de la demande.</p>
+        <div class="rapport-btns">
+          <a href="assets/rapports/pharmacy_sales.pdf" download class="btn btn-primary btn-sm">⬇ Télécharger</a>
+          <a href="assets/rapports/pharmacy_sales.pdf" target="_blank" class="btn btn-secondary btn-sm">👁 Voir</a>
+        </div>
+      </div>
+    </div>
+    <div class="rapport-card reveal">
+      <div class="rapport-thumb thumb-2">🌍</div>
+      <div class="rapport-body">
+        <h3>Enregistrement des Naissances UNICEF</h3>
+        <p>KPIs de performance des agents et suivi des enregistrements pour la région de Kolda.</p>
+        <div class="rapport-btns">
+          <a href="assets/rapports/Kolda_crvs_agents.pdf" download class="btn btn-primary btn-sm">⬇ Télécharger</a>
+          <a href="assets/rapports/Kolda_crvs_agents.pdf" target="_blank" class="btn btn-secondary btn-sm">👁 Voir</a>
+        </div>
+      </div>
+    </div>
+    <div class="rapport-card reveal">
+      <div class="rapport-thumb" style="background:linear-gradient(135deg,#e8f4f8,#c0dff0);">💳</div>
+      <div class="rapport-body">
+        <h3>Tableaux de Bord Commerciaux — Wizall Money</h3>
+        <p>Suivi en temps réel de l'activité des commerciaux sur 4 pays : Sénégal, Côte d'Ivoire, Mali, Burkina Faso.</p>
+        <div class="rapport-btns">
+          <a href="assets/rapports/Tableau_de_bord_des_commerciaux_SN.pdf" download class="btn btn-primary btn-sm">⬇ Télécharger</a>
+          <a href="assets/rapports/Tableau_de_bord_des_commerciaux_SN.pdf" target="_blank" class="btn btn-secondary btn-sm">👁 Voir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pdf-viewer reveal">
+    <div class="pdf-header">
+      <div class="pdf-dots"><div class="pdf-dot"></div><div class="pdf-dot"></div><div class="pdf-dot"></div></div>
+      <span class="pdf-title">📄 Rapport — Analyse des Ventes en Pharmacie</span>
+      <a href="assets/rapports/pharmacy_sales.pdf" download class="btn btn-primary btn-sm">⬇ Télécharger</a>
+    </div>
+    <iframe class="pdf-frame" src="assets/rapports/pharmacy_sales.pdf" title="Rapport Ventes Pharmacie">
+      <div class="pdf-placeholder">
+        <div class="pdf-placeholder-icon">📄</div>
+        <p>Ajoutez votre PDF dans <code>assets/rapports/pharmacy_sales.pdf</code> pour l'afficher ici.</p>
+      </div>
+    </iframe>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="section-label">Contact</p>
+      <h2>Travaillons<br/>ensemble</h2>
+      <p class="section-intro">Vous avez un projet data en tête ? Discutons de la façon dont je peux vous aider à valoriser vos données.</p>
+      <div class="contact-links">
+        <a href="mailto:dioufmariam08@gmail.com" class="contact-link"><span class="contact-link-icon">✉️</span>dioufmariam08@gmail.com</a>
+        <a href="http://www.linkedin.com/in/mar%C3%A8me-diouf-815aa8156" target="_blank" class="contact-link"><span class="contact-link-icon">💼</span>LinkedIn — Maréme Diouf</a>
+        <a href="https://github.com/DioufMariama08" target="_blank" class="contact-link"><span class="contact-link-icon">🐱</span>github.com/DioufMariama08</a>
+        <div class="contact-link" style="cursor:default"><span class="contact-link-icon">📍</span>Rufisque Ouest, Cité Cora Fall, Sénégal</div>
+      </div>
+    </div>
+    <
